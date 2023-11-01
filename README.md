@@ -138,15 +138,14 @@ This walk-through outlines the process of creating a home lab environment that i
 
 12. The NAT/RAS connections can now be installed on the domain controller. This can be done by clicking on "Add Roles and Features" under the Server Manager Dashboard. Then under Select Server Roles, click on the check mark box that states Remote Access and Routing, and then click on Install. On the Server Manager Dashboard, right-click on Tools and then click on Routing and Remote Access. Then, under DC, click on "Configure and Enable Routing and Remote Access." Under configuration, click on NAT.  After selecting next, click on the internet adapter.
 
--SSH traffic commands to try out: pw,  ls.
 
 <p>
 <img src="https://imgur.com/8RzNxG4.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 
-13. Back in Wireshark, filter for DHCP traffic only. Observe the DHCP traffic appearing in Wireshark.
+13. Now, we can set up the DHCP server so that the Windows 10 client can get an IP address from the Windows 2019 server so that they can use the internet. This can be done by clicking on Add Roles on the Sever Management Dashboard and then selecting the DHCP checkbox. Then after selecting Next, click on Install. 
 
-14. From your Windows 10 VM, attempt to issue your VM a new IP address from the command line (ipconfig/renew). Observe the DHCP traffic appearing in Wireshark.
+14. The scope for the DHCP server can now be set up. This can be done by first navigating to the DHCP server under the Server Management Dashboard.  Right-click on IPv4 and then click on New Scope. The start address of the DHCP server is 172.16.0.100 and the end IP address is 172.16.0.200. The subnet mask is 255.255.255.0. When asked if you want to configure DHCP options, click on "Yes I want to configure these options now". Under the Router (Default Gateway) option, enter the IP address of the domain controller. After the DHCP scope is created, right-click the DHCP server click on Authorize, and then click on Refresh. 
 
 
 
@@ -155,10 +154,13 @@ This walk-through outlines the process of creating a home lab environment that i
 </p>
 
 
-15. Back in Wireshark, filter for DNS traffic only
+15. We will now download a list of fake users onto Active Directory using a Powershell script. Before running the Powershell script, type Set-Execution Policy Unrestricted. Based on the Powershell script, all of the created users will have a password of Password1. The usernames of the users will have a format of being the first letter of their first name and then their last name. Once the script is run, you should see users starting to be created in blue text. When you navigate to Active Directory Users and Computers and click on the organizational unit labeled _USERS, you can view the list of users being created.
+
+16. Now we can move on to configuring the Windows 10 virtual machine. Under the Network tab, configure the Windows 10 virtual machine to use an internal network. When configuring Windows 10, make sure to use Windows 10 Pro and not Windows 10 Home since you are unable to connect to a domain using Windows 10 Home.
+  
 
 
-16. From your Windows 10 VM within a command line, use nslookup to see what google.com and disney.com’s IP addresses are
+17. Once Windows 10 is set up, run ipconfig in the command line. If there is no listed default gateway, make sure that routing and remote access is enabled in the DHCP server. Then click on "Change". You can name the computer CLIENT1 and make it a member of mydomain.com.
 
 
 
@@ -166,7 +168,7 @@ This walk-through outlines the process of creating a home lab environment that i
 <img src="https://imgur.com/ym4QKCZ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 
-17.Back in Wireshark, filter for RDP traffic only (tcp.port == 3389)
+18. Now, we can finally join the Windows 10 desktop to the Windows 2019 server. To do this, on the Windows 10 Desktop, right-click the Start menu and then click on system. Then click on Rename this PC (advanced).
 
 
 18. Observe the immediate non-stop spam of traffic. This traffic seems to be nonstop because the RDP (protocol) is constantly showing you a live stream from one computer to another, therefore traffic is always being transmitted
