@@ -2,7 +2,7 @@
 <img src="https://imgur.com/zenBk6l.png"/>
 </p>
 
-<h1>Creating a Home Lab Environment That Uses Active Directory Within Oracle Virtual Box </h1>
+<h1>Creating a Home Lab Environment That Utilizes Active Directory Within Oracle Virtual Box </h1>
 This walk-through outlines the process of creating a home lab environment that incorporates Active Directory. Active Directory will be installed on a Windows 2019 server that will be configured on its own virtual machine using Oracle Virtual Box. Then, a Windows 10 Virtual Box virtual machine will be created and connected to the domain server. After generating users into the Active Directory using a Powershell script, we will be able to log in to any of the generated users' accounts using the Windows 10 machine. <br />
 
 
