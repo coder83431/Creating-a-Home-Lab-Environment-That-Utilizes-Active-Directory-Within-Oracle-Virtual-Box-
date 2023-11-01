@@ -166,6 +166,10 @@ This walk-through outlines the process of creating a home lab environment that i
 <img src="https://imgur.com/Y6G3XGW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 
+<p>
+<img src="https://imgur.com/f0YrY9D.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+
 18. Now, we can finally join the Windows 10 desktop to the Windows 2019 server. To do this, on the Windows 10 Desktop, right-click the Start menu and then click on System. Then click on Rename this PC (advanced). After you connect to the domain named mydomain.com, the Windows 10 desktop can now be logged into using any of the user account information that was created from the Powershell script.
 
 
